@@ -20,25 +20,6 @@ export default function ToDoList({ tasks }) {
       ))}
     </ScrollView>
   );
-  // return (
-  //   <ScrollView>
-  //     <Pressable>
-  //       <View style={[styles.task, styles.completed]}>
-  //         <Text style={styles.taskText}>Go to pilates</Text>
-  //       </View>
-  //     </Pressable>
-  //     <Pressable>
-  //       <View style={styles.task}>
-  //         <Text style={styles.taskText}>Go shopping</Text>
-  //       </View>
-  //     </Pressable>
-  //     <Pressable>
-  //       <View style={[styles.task, styles.completed]}>
-  //         <Text style={styles.taskText}>Dinner with Bob</Text>
-  //       </View>
-  //     </Pressable>
-  //   </ScrollView>
-  // );
 }
 
 const styles = StyleSheet.create({

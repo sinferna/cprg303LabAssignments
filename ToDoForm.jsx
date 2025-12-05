@@ -6,11 +6,26 @@
  * @format
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, TextInput, Button, StyleSheet } from 'react-native';
+import tasksData from './data/tasks.json';
 
 export default function ToDoForm({ addTask }) {
-  const [taskText, setTaskText] = React.useState('');
+  const [taskText, setTaskText] = useState('');
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    setTasks(tasksData.tasks);
+  }, []);
+
+  const handleGenerateRandomTask = () => {
+    if (tasks.length === 0) return;
+
+    const randomIndex = Math.floor(Math.random() * tasks.length);
+    const randomTask = tasks[randomIndex];
+
+    setTaskText(randomTask);
+  };
 
   return (
     <View style={styles.form}>
@@ -20,9 +35,22 @@ export default function ToDoForm({ addTask }) {
         onChangeText={(text) => setTaskText(text)}
         value={taskText}
       />
+
+      <View style={styles.buttonSpacing}>
+        <Button
+          title="Generate Random Task"
+          onPress={handleGenerateRandomTask}
+        />
+      </View>
+
       <Button 
         title="Add Task"
-        onPress={() => addTask(taskText)}
+        onPress={() => {
+          if (taskText && taskText.trim() !== '') {
+            addTask(taskText);
+            setTaskText('');
+          }
+        }}
       />
     </View>
   );
@@ -30,18 +58,15 @@ export default function ToDoForm({ addTask }) {
 
 const styles = StyleSheet.create({
   form: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: 'column',
     alignItems: 'center',
     marginHorizontal: 20,
     marginTop: 20,
+    gap: 10,
   },
   input: {
-    flex: 1,
+    height: 40,
     borderWidth: 1,
     borderColor: '#ccc',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    marginRight: 10,
   },
 });
